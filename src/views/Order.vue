@@ -52,6 +52,9 @@ export default {
     <div class="content-home">
       <h4>Lista pedidos</h4>
       <hr />
+      <div class="content-search">
+        <input type="search" class="field-text" placeholder="Code compra" />
+      </div>
     </div>
     <table class="table">
       <thead>
@@ -89,7 +92,7 @@ export default {
 }
 
 .content-home {
-  padding: 1rem;
+  padding: 2rem;
 }
 
 .content-home > h4 {
@@ -115,6 +118,33 @@ export default {
 
 .col {
   color: #ffffff;
+  font-weight: 800;
+  font-size: 1rem;
+  line-height: 2rem;
+}
+
+.content-search {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+}
+
+.content-search {
+  border: 2px solid #E8EAE6;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.field-text {
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 6px 6px 6px #CFDAC8;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.field-text {
   font-weight: 800;
   font-size: 1rem;
   line-height: 2rem;
