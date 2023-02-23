@@ -52,17 +52,21 @@ export default {
       </span>
     </th>
     <th>
-      <button type="button" class="btn-edit">Editar</button>
+      <router-link
+        class="btn-edit"
+        :to="{ name: 'detail-order', params: { code_buy } }"
+        >Editar</router-link
+      >
     </th>
   </tr>
 </template>
 
 <style scoped>
 .col-tr > th {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 0.7rem;
   border: 2px solid #fbfbfb;
-  box-shadow: 4px 4px 4px #F7FBFC;
+  box-shadow: 4px 4px 4px #f7fbfc;
 }
 
 .btn-edit {
@@ -94,7 +98,7 @@ export default {
 }
 
 .delivery {
-  background-color: #99F3BD;
+  background-color: #99f3bd;
   border-radius: 0.5rem;
   border: none;
   padding: 0.5rem;
