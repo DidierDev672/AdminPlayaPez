@@ -4,6 +4,8 @@ export default {
   data() {
     return {
       Open: this.isOpen,
+      Down: false,
+      Above: false,
     };
   },
   props: {
@@ -18,13 +20,19 @@ export default {
 
   methods: {
     visible() {
-      if(this.Open === false){
+      if (this.Open === false) {
         this.Open = true;
+        this.Down = true;
+        this.Above = true;
       }
+    },
 
-      // if(this.Open === true){
-      //   this.Open = false;
-      // }
+    Hide() {
+      if (this.Open === true) {
+        this.Open = false;
+        this.Down = false;
+        this.Above = false;
+      }
     },
   },
 };
@@ -38,12 +46,31 @@ export default {
           <h4>{{ name_product }}</h4>
         </div>
         <div>
-          <button type="button" class="btn-arrow" @click="visible">
-            <i class="fa-solid fa-arrow-down"></i>
-          </button>
+          <div class="flex-row">
+            <div class="item-row">
+              <button
+                type="button"
+                class="btn-arrow"
+                :class="{ arrow: Down }"
+                @click="visible"
+              >
+                <i class="fa-solid fa-arrow-down"></i>
+              </button>
+            </div>
+            <div class="item-row">
+              <button
+                type="button"
+                class="btn-above"
+                :class="{ above: Above }"
+                @click="Hide"
+              >
+                <i class="fa-solid fa-arrow-up"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-      <ul :class="{ visible: Open }">
+      <ul :class="{ visible: Open }" class="list-group">
         <li>{{ name_product }}</li>
         <li>{{ category }}</li>
         <li>{{ price }}</li>
@@ -70,6 +97,7 @@ export default {
 }
 
 .btn-arrow {
+  background-color: transparent;
   border: none;
   cursor: pointer;
   position: relative;
@@ -77,11 +105,59 @@ export default {
   margin-top: 10px;
 }
 
+.btn-above {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  right: -350px;
+  margin-top: 10px;
+}
+
+.btn-above {
+  display: none;
+}
+
 ul {
   display: none;
 }
 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .visible {
   display: block;
+}
+
+.arrow {
+  display: none;
+}
+
+.above {
+  display: block;
+}
+
+.list-group {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  border: 2px solid #e9ecef;
+  box-shadow: 6px 6px 6px #dee2e6;
+  padding: 0.5rem;
+}
+
+.list-group > li {
+  list-style: none;
+  border-radius: 0.5rem;
+  border: 2px solid #e9ecef;
+  padding: 0.5rem;
+}
+
+.list-group > li {
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 2rem;
 }
 </style>
