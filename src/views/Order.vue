@@ -18,7 +18,7 @@ export default {
         },
         {
           id: 2,
-          code_buy: "98d28ec4-9eb3-4594-96df-05645d4eb441",
+          code_buy: "acb1b854-c83f-4ba7-8993-152e06db4dfb",
           name_buyer: "Aizen Arias",
           date_buy: "04/02/2023",
           uid: "hZ1yJmYrTlb77O5QgZOoyX1oZhO2",
@@ -26,17 +26,6 @@ export default {
           state_preparation: false,
           state_road: true,
           state_delivery: false,
-        },
-        {
-          id: 2,
-          code_buy: "98d28ec4-9eb3-4594-96df-05645d4eb441",
-          name_buyer: "Aizen Arias",
-          date_buy: "04/02/2023",
-          uid: "hZ1yJmYrTlb77O5QgZOoyX1oZhO2",
-          state_buy: true,
-          state_preparation: false,
-          state_road: false,
-          state_delivery: true,
         },
       ],
     };
@@ -131,7 +120,7 @@ export default {
 }
 
 .content-search {
-  border: 2px solid #E8EAE6;
+  border: 2px solid #e8eae6;
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -139,7 +128,7 @@ export default {
 .field-text {
   border: none;
   border-radius: 0.5rem;
-  box-shadow: 6px 6px 6px #CFDAC8;
+  box-shadow: 6px 6px 6px #cfdac8;
   text-align: center;
   padding: 0.5rem;
 }
