@@ -20,7 +20,7 @@ export default {
             `../assets/Pond/pexels-photo-2560899.jpeg`,
             import.meta.url
           ).href,
-          path: "",
+          path: "/pond",
         },
         {
           id: 3,
@@ -30,6 +30,15 @@ export default {
             import.meta.url
           ).href,
           path: "",
+        },
+        {
+          id: 4,
+          name: "Productos",
+          cover: new URL(
+            "../assets/Products/pexels-photo-947174.jpeg",
+            import.meta.url
+          ).href,
+          path: "/products",
         },
       ],
     };
