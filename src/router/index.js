@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import DetailOrder from "../components/DetailOrder.vue";
+import DetailAskPond from "../views/DetailAskPond.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,14 @@ const router = createRouter({
       component: () => import("../views/Pond.vue"),
     },
     {
+      path: "/ask-pond",
+      component: () => import("../views/PondAsk.vue"),
+    },
+    {
+      path: "/food-pond",
+      component: () => import("../views/FoodPond.vue"),
+    },
+    {
       path: "/entry-product",
       component: () => import("../views/EntryProduct.vue"),
     },
@@ -41,6 +50,12 @@ const router = createRouter({
       name: "detail-order",
       props: true,
       component: DetailOrder,
+    },
+    {
+      path: "/ask-pond:code_ask",
+      name: "detail-ask-pond",
+      props: true,
+      component: DetailAskPond,
     },
   ],
 });
