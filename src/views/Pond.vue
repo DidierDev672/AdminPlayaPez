@@ -11,7 +11,7 @@ export default {
             "../assets/Pond/pexels-photo-15007759.jpeg",
             import.meta.url
           ).href,
-          path: "",
+          path: "/ask-pond",
         },
         {
           id: 2,
@@ -20,7 +20,7 @@ export default {
             "../assets/Pond/pexels-photo-2067510.jpeg",
             import.meta.url
           ).href,
-          path: "",
+          path: "/food-pond",
         },
       ],
     };
@@ -38,7 +38,7 @@ export default {
         <div class="card-pond">
           <img class="img-responsive" :src="list.cover" />
           <h4>{{ list.name }}</h4>
-          <router-link to="/" class="btn-check">Revisar</router-link>
+          <router-link :to="list.path" class="btn-check">Revisar</router-link>
         </div>
       </div>
     </div>
