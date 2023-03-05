@@ -37,7 +37,7 @@ export default {
 }
 
 .btn-see-detail {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .btn-delete {
@@ -52,6 +52,6 @@ export default {
   background-color: #ffffff;
   border-radius: 0.7rem;
   border: 2px solid #fbfbfb;
-  box-shadow: 4px 4px 4px #ced4da
+  box-shadow: 4px 4px 4px #ced4da;
 }
 </style>
