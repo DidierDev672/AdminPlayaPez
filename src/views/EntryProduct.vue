@@ -1,8 +1,56 @@
 <script>
+import { mapActions } from "vuex";
+import voucher_codes from "voucher-code-generator";
+import { createToast } from "mosha-vue-toastify";
+
 export default {
   name: "entry-product",
   data() {
-    return {};
+    return {
+      name_product: "",
+      category: "Open this menu",
+      price: 0,
+      quantity: 0,
+      description: "",
+    };
+  },
+
+  methods: {
+    ...mapActions("product", ["addProduct"]),
+
+    saveProducts() {
+      let codeproduct = voucher_codes.generate({
+        length: 4,
+        count: 1,
+      });
+
+      let dataProducts = {
+        name_product: this.name_product,
+        category: this.category,
+        price: this.price,
+        quantity: this.quantity,
+        description: this.description,
+        date_entry: new Date(),
+        code_product: { ...codeproduct },
+      };
+
+      if (
+        this.name_product !== "" &&
+        this.category !== "Open this menu" &&
+        this.description !== "" &&
+        this.price !== 0 &&
+        this.quantity !== 0
+      ) {
+        this.addProduct({ products : dataProducts });
+        createToast("La informacion se ha almacenado con exito");
+        this.name_product = "";
+        this.description = "";
+        this.price = 0;
+        this.quantity = 0;
+      } else {
+        createToast("Debe llenar todos los campos");
+      }
+    },
   },
 };
 </script>
@@ -11,16 +59,27 @@ export default {
   <div class="container">
     <div class="card-entry-product">
       <div class="content-entry-product">
+        <img src="../assets/Products/pexels-photo-1267338.jpeg" class="img-responsive" />
+        <router-link to="/products" class="btn-back"> <i class="fa-solid fa-arrow-left"></i> </router-link>
         <h4>Ingreso de los productos</h4>
       </div>
       <div class="flex-entry-product">
         <div class="item-entry-product">
           <label>Nombre producto</label>
-          <input type="text" class="text-field" placeholder="Nombre producto" />
+          <input
+            type="text"
+            class="text-field"
+            v-model="name_product"
+            placeholder="Nombre producto"
+          />
         </div>
         <div class="item-entry-product">
           <label>Categoria</label>
-          <select class="select-category" aria-label="Default select example">
+          <select
+            class="select-category"
+            v-model="category"
+            aria-label="Default select example"
+          >
             <option selected>Open this menu</option>
             <option value="1">Tilapia</option>
             <option value="2">Alimentador</option>
@@ -29,17 +88,31 @@ export default {
         </div>
         <div class="item-entry-product">
           <label>Precio</label>
-          <input type="number" class="text-field" placeholder="Precio" />
+          <input
+            type="number"
+            class="text-field"
+            v-model="price"
+            placeholder="Precio"
+          />
         </div>
         <div class="item-entry-product">
           <label>Cantidad</label>
-          <input type="number" class="text-field" placeholder="Cantidad" />
+          <input
+            type="number"
+            class="text-field"
+            v-model="quantity"
+            placeholder="Cantidad"
+          />
         </div>
         <div class="item-entry-product">
           <label>Descripcion</label>
-          <textarea class="text-field" placeholder="Descripcion"></textarea>
+          <textarea
+            class="text-field"
+            v-model="description"
+            placeholder="Descripcion"
+          ></textarea>
         </div>
-        <button type="button" class="btn-entry">Ingresar</button>
+        <button type="button" class="btn-entry" @click="saveProducts()">Ingresar</button>
       </div>
     </div>
   </div>
@@ -49,6 +122,25 @@ export default {
 .container {
   display: flex;
   place-content: center;
+}
+
+.img-responsive {
+  display: flex;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.btn-back {
+  display: flex;
+  place-content: center;
+}
+.btn-back {
+  text-decoration: none;
+  width: 2rem;
+  background-color: #fee440;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .card-entry-product {
@@ -61,7 +153,9 @@ export default {
 }
 
 .content-entry-product {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .content-entry-product > h4 {
@@ -89,7 +183,7 @@ export default {
 }
 
 .item-entry-product {
-  border: 3px solid #f8f9fa;
+  border: 3px solid #e9ecef;
   border-radius: 0.5rem;
   padding: 0.7rem;
 }
@@ -127,6 +221,7 @@ export default {
   border-radius: 0.5rem;
   border: none;
   padding: 0.7rem;
+  cursor: pointer;
 }
 
 .btn-entry {
