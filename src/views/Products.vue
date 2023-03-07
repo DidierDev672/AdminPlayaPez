@@ -31,6 +31,7 @@ export default {
 <template>
   <div class="container">
     <div class="content-products">
+      <router-link to="/home" class="btn-back"> <i class="fa-solid fa-arrow-left"></i> </router-link>
       <h4>Area de productos, zona de trabajo</h4>
     </div>
     <div class="grid-products">
@@ -53,6 +54,13 @@ export default {
 }
 .content-products {
   padding: 1rem;
+}
+
+.btn-back {
+  width: 5rem;
+  background-color: #fee440;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
 .content-products > h4 {
