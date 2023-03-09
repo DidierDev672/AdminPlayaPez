@@ -31,7 +31,9 @@ export default {
 <template>
   <div class="container">
     <div class="content-products">
-      <router-link to="/home" class="btn-back"> <i class="fa-solid fa-arrow-left"></i> </router-link>
+      <router-link to="/home" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+      </router-link>
       <h4>Area de productos, zona de trabajo</h4>
     </div>
     <div class="grid-products">
@@ -78,7 +80,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-template-rows: minmax(100px, auto);
-  gap: 20px;
+  gap: 10px;
 }
 
 .item-products {
@@ -88,17 +90,16 @@ export default {
 }
 
 .card-products {
+  width: 30rem;
   background-color: #f8f9fa;
   border-radius: 0.5rem;
   border: 2px solid #e9ecef;
+  box-shadow: 6px 6px 6px #dee2e6;
   padding: 0.5rem;
 }
 
 .card-products {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  justify-content: center;
+  margin: auto;
 }
 .card-products > h4 {
   font-weight: 800;
