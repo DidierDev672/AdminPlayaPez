@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from "vuex";
-import voucher_codes from "voucher-code-generator";
+import Function from "../function";
 import { createToast } from "mosha-vue-toastify";
 
 export default {
@@ -19,11 +19,6 @@ export default {
     ...mapActions("product", ["addProduct"]),
 
     saveProducts() {
-      let codeproduct = voucher_codes.generate({
-        length: 4,
-        count: 1,
-      });
-
       let dataProducts = {
         name_product: this.name_product,
         category: this.category,
@@ -31,7 +26,7 @@ export default {
         quantity: this.quantity,
         description: this.description,
         date_entry: new Date(),
-        code_product: { ...codeproduct },
+        id: Function.generator_code(),
       };
 
       if (
@@ -41,7 +36,7 @@ export default {
         this.price !== 0 &&
         this.quantity !== 0
       ) {
-        this.addProduct({ products : dataProducts });
+        this.addProduct({ products: dataProducts });
         createToast("La informacion se ha almacenado con exito");
         this.name_product = "";
         this.description = "";
@@ -59,8 +54,13 @@ export default {
   <div class="container">
     <div class="card-entry-product">
       <div class="content-entry-product">
-        <img src="../assets/Products/pexels-photo-1267338.jpeg" class="img-responsive" />
-        <router-link to="/products" class="btn-back"> <i class="fa-solid fa-arrow-left"></i> </router-link>
+        <img
+          src="../assets/Products/pexels-photo-1267338.jpeg"
+          class="img-responsive"
+        />
+        <router-link to="/products" class="btn-back">
+          <i class="fa-solid fa-arrow-left"></i>
+        </router-link>
         <h4>Ingreso de los productos</h4>
       </div>
       <div class="flex-entry-product">
@@ -81,9 +81,10 @@ export default {
             aria-label="Default select example"
           >
             <option selected>Open this menu</option>
-            <option value="1">Tilapia</option>
-            <option value="2">Alimentador</option>
-            <option value="3">Sensor</option>
+            <option value="Tilapia">Tilapia</option>
+            <option value="Alimentador">Alimentador</option>
+            <option value="Medidor">Medidor</option>
+            <option value="Sensor">Sensor</option>
           </select>
         </div>
         <div class="item-entry-product">
@@ -112,7 +113,9 @@ export default {
             placeholder="Descripcion"
           ></textarea>
         </div>
-        <button type="button" class="btn-entry" @click="saveProducts()">Ingresar</button>
+        <button type="button" class="btn-entry" @click="saveProducts()">
+          Ingresar
+        </button>
       </div>
     </div>
   </div>
