@@ -2,6 +2,7 @@ import { db } from "./firebase";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 
 const Refproduct = "products";
+const Reforder = "headerBuy";
 
 export default {
   async getProducts() {
@@ -20,5 +21,15 @@ export default {
     });
 
     return docRef.id;
+  },
+
+  async getOrder() {
+    let orders = [];
+    const querySnapshot = await getDocs(collection(db, Reforder));
+    querySnapshot.forEach((doc) => {
+      orders.push(doc.data());
+    });
+
+    return orders;
   },
 };
