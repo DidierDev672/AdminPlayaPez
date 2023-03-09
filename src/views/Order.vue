@@ -34,6 +34,10 @@ export default {
   components: {
     ItemOrder,
   },
+
+  created() {
+    this.$store.dispatch("order/fetchOrders");
+  },
 };
 </script>
 <template>
