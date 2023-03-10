@@ -1,42 +1,47 @@
 <script>
+import { mapGetters, mapActions } from "vuex";
+import { createToast } from "mosha-vue-toastify";
 import AccordionView from "../styles/components/Accordion.vue";
+
 export default {
   name: "detail-order",
   data() {
     return {
-      data: [
-        {
-          code_buy: "acb1b854-c83f-4ba7-8993-152e06db4dfb",
-          id: 9,
-          category: "Medidor",
-          name_product: "Detector de concentración de oxígeno O2 Portatil",
-          price: 458565,
-          quantity: 1,
-        },
-        {
-          code_buy: "acb1b854-c83f-4ba7-8993-152e06db4dfb",
-          id: 4,
-          name_product: "Sensor de temperatura",
-          price: 10000,
-          quantity: 1,
-        },
-        {
-          code_buy: "acb1b854-c83f-4ba7-8993-152e06db4dfb",
-          category: "Sensor",
-          name_product:
-            "Nivel de líquido agua sensor detector electrodos industrial",
-          price: 20900,
-          quantity: 1,
-        },
-      ],
+      state_buy: "",
+      note: "",
     };
   },
   props: {
     code_buy: String,
   },
 
+  computed: {
+    ...mapGetters("order", ["getListbyDetail"]),
+
+    data() {
+      return this.getListbyDetail(this.code_buy);
+    },
+  },
+
+  methods: {
+    ...mapActions("order", ["updateStateOrder"]),
+
+    changedState() {
+      if (this.note) {
+        this.updateStateOrder({ state_order: this.state_buy, note: this.note });
+        createToast("La actualizacion se ha actualizado con exito");
+      } else {
+        createToast("Debe llenar todos los campos");
+      }
+    },
+  },
+
   components: {
     AccordionView,
+  },
+
+  created() {
+    this.$store.dispatch("order/fetchDetail");
   },
 };
 </script>
@@ -44,26 +49,43 @@ export default {
 <template>
   <div class="container">
     <div class="card-detail-order">
+      <router-link to="/orders" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+      </router-link>
       <div class="content-detail-order">
+        <img
+          src="../assets/Orders/pexels-photo-6169052.webp"
+          class="img-responsive"
+        />
         <h4>Detalle del pedido</h4>
       </div>
       <div class="flex-column-detail-order">
         <div class="item-detail-order">
           <label>Cambiar estado</label>
-          <select class="change-status" arial-label="Default select">
+          <select
+            class="change-status"
+            arial-label="Default select"
+            v-model="state_buy"
+          >
             <option selected>Abrir el seleccionador menu</option>
-            <option value="1">En preparacion</option>
-            <option value="2">En camino</option>
+            <option value="preparation">En preparacion</option>
+            <option value="road">En camino</option>
           </select>
         </div>
         <div class="item-detail-order">
           <label>Nota</label>
-          <textarea class="field-text" placelholder="Escribir nota"></textarea>
+          <textarea
+            class="field-text"
+            placelholder="Escribir nota"
+            v-model="note"
+          ></textarea>
         </div>
         <div class="flex-accordion">
           <accordion-view :code_buy="code_buy" />
         </div>
-        <button type="button" class="btn-change">Cambiar estado</button>
+        <button type="button" class="btn-change" @click="changedState()">
+          Cambiar estado
+        </button>
       </div>
     </div>
   </div>
@@ -76,6 +98,27 @@ export default {
   place-content: center;
 }
 
+.btn-back {
+  display: flex;
+  place-content: center;
+  width: 3rem;
+  background-color: #ffee32;
+  border-radius: 0.5rem;
+  border: none;
+  padding: 0.5rem;
+}
+
+.btn-back {
+  text-decoration: none;
+}
+
+.img-responsive {
+  display: flex;
+  margin: auto;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
 .card-detail-order {
   display: flex;
   flex-direction: column;
@@ -86,8 +129,8 @@ export default {
   width: 60rem;
   background-color: #ffffff;
   border-radius: 0.5rem;
-  border: 2px solid #eeeeee;
-  box-shadow: 8px 8px 8px #e8eae6;
+  border: 2px solid #e9ecef;
+  box-shadow: 6px 6px 6px #dee2e6;
   padding: 2rem;
 }
 
@@ -119,7 +162,7 @@ export default {
 }
 
 .item-detail-order {
-  border: 2px solid #e8f6ef;
+  border: 2px solid #e9ecef;
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -139,7 +182,7 @@ export default {
 
 .field-text {
   border-radius: 0.5rem;
-  border: none;
+  border: 2px solid #e9ecef;
   box-shadow: 8px 8px 8px #e8eae6;
   padding: 0.5rem;
 }
