@@ -31,6 +31,13 @@ export default {
 
       return "";
     },
+
+    convert() {
+      let convert = { ...this.date_buy };
+      let myDate = new Date(convert.seconds * 1000);
+
+      return myDate;
+    },
   },
 };
 </script>
@@ -39,7 +46,7 @@ export default {
   <tr class="col-tr">
     <th>{{ code_buy }}</th>
     <th>{{ name_buyer }}</th>
-    <th>{{ date_buy }}</th>
+    <th>{{ convert }}</th>
     <th>
       <span
         :class="{
@@ -71,34 +78,35 @@ export default {
 
 .btn-edit {
   width: 5rem;
-  background-color: #f1f864;
+  background-color: #fee440;
   border: none;
   border-radius: 0.5rem;
-  padding: 0.3rem;
+  padding: 0.5rem;
 }
 
 .btn-edit {
+  text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
   line-height: 2rem;
 }
 
 .preparation {
-  background-color: #fffda2;
+  background-color: #f9c74f;
   border-radius: 0.5rem;
   border: none;
   padding: 0.5rem;
 }
 
 .road {
-  background-color: #b8fff9;
+  background-color: #b5e48c;
   border-radius: 0.5rem;
   border: none;
   padding: 0.5rem;
 }
 
 .delivery {
-  background-color: #99f3bd;
+  background-color: #76c893;
   border-radius: 0.5rem;
   border: none;
   padding: 0.5rem;
