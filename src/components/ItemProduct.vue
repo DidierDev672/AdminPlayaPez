@@ -9,6 +9,15 @@ export default {
     price: Number,
     date_entry: String,
   },
+
+  computed: {
+    Convert_Date() {
+      let convert = { ...this.date_entry };
+      let myDate = new Date(convert.seconds * 1000);
+
+      return myDate;
+    },
+  },
 };
 </script>
 
@@ -18,10 +27,7 @@ export default {
     <th>{{ name_product }}</th>
     <th>{{ category }}</th>
     <th>{{ price }}</th>
-    <th>{{ date_entry }}</th>
-    <th>
-      <button type="button" class="btn-see-detail">Ver detalle</button>
-    </th>
+    <th>{{ Convert_Date }}</th>
     <th>
       <button type="button" class="btn-delete">Eliminar</button>
     </th>
