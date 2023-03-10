@@ -1,8 +1,15 @@
 import { db } from "./firebase";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 
 const Refproduct = "products";
 const Reforder = "headerBuy";
+const Refdetailorder = "detailBuy";
 
 export default {
   async getProducts() {
@@ -31,5 +38,39 @@ export default {
     });
 
     return orders;
+  },
+
+  async getDetailOrder() {
+    let detail = [];
+    const querySnapshot = await getDocs(collection(db, Refdetailorder));
+    querySnapshot.forEach((doc) => {
+      detail.push(doc.data());
+    });
+
+    return detail;
+  },
+
+  async updateOrders({ id, state_order, note }) {
+    const orderRef = doc(db, Reforder, id);
+
+    switch (state_order) {
+      case "road":
+        await updateDoc(orderRef, {
+          state_road: true,
+          note: note,
+        });
+
+        break;
+
+      case "preparation":
+        await updateDoc(orderRef, {
+          state_preparation: true,
+          note: note,
+        });
+        break;
+
+      default:
+        return "No se ha seleciona opciones";
+    }
   },
 };
