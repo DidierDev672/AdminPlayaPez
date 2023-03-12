@@ -5,7 +5,7 @@ export default {
     return {};
   },
   props: {
-    id: Number,
+    id: String,
     code_buy: String,
     name_buyer: String,
     date_buy: String,
@@ -92,14 +92,14 @@ export default {
 }
 
 .preparation {
-  background-color: #f9c74f;
+  background-color: #f8f988;
   border-radius: 0.5rem;
   border: none;
   padding: 0.5rem;
 }
 
 .road {
-  background-color: #b5e48c;
+  background-color: #b3ffae;
   border-radius: 0.5rem;
   border: none;
   padding: 0.5rem;
