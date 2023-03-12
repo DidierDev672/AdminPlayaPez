@@ -1,5 +1,7 @@
 <script>
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { mapGetters, mapActions } from "vuex";
+import { db } from "../api/firebase";
 import { createToast } from "mosha-vue-toastify";
 import AccordionView from "../styles/components/Accordion.vue";
 
@@ -7,8 +9,9 @@ export default {
   name: "detail-order",
   data() {
     return {
-      state_buy: "",
+      state_buy: "Abrir el seleccionador menu",
       note: "",
+      id: "",
     };
   },
   props: {
@@ -27,12 +30,28 @@ export default {
     ...mapActions("order", ["updateStateOrder"]),
 
     changedState() {
-      if (this.note) {
-        this.updateStateOrder({ state_order: this.state_buy, note: this.note });
+      if (this.state_buy !== "Abrir el seleccionador menu") {
+        this.updateStateOrder({
+          state_order: this.state_buy,
+          note: this.note,
+          id: this.id,
+        });
         createToast("La actualizacion se ha actualizado con exito");
       } else {
         createToast("Debe llenar todos los campos");
       }
+    },
+
+    async queryidDocument() {
+      const q = query(
+        collection(db, "headerBuy"),
+        where("code_buy", "==", this.code_buy)
+      );
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        this.id = doc.id;
+      });
     },
   },
 
@@ -42,6 +61,7 @@ export default {
 
   created() {
     this.$store.dispatch("order/fetchDetail");
+    this.queryidDocument();
   },
 };
 </script>
@@ -49,12 +69,12 @@ export default {
 <template>
   <div class="container">
     <div class="card-detail-order">
-      <router-link to="/orders" class="btn-back">
+      <router-link to="/orders" class="btn-back has-transition">
         <i class="fa-solid fa-arrow-left"></i>
       </router-link>
       <div class="content-detail-order">
         <img
-          src="../assets/Orders/pexels-photo-6169052.webp"
+          src="../assets/Orders/pexels-photo-6169668.jpeg"
           class="img-responsive"
         />
         <h4>Detalle del pedido</h4>
@@ -162,7 +182,7 @@ export default {
 }
 
 .item-detail-order {
-  border: 2px solid #e9ecef;
+  border: 2px solid #dee2e6;
   border-radius: 0.5rem;
   padding: 0.5rem;
 }
@@ -182,8 +202,8 @@ export default {
 
 .field-text {
   border-radius: 0.5rem;
-  border: 2px solid #e9ecef;
-  box-shadow: 8px 8px 8px #e8eae6;
+  border: 2px solid #dee2e6;
+  box-shadow: 8px 8px 8px #ced4da;
   padding: 0.5rem;
 }
 
